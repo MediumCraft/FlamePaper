@@ -61,3 +61,15 @@ jobs:
       with:
         name: FlamePaper-API
         path: FlamePaper-API/target/flamepaper-api-1.8.8-R0.1-SNAPSHOT.jar
+    - name: Archive repository on failure
+      if: ${{ failure() }}
+      run: |
+        git archive --format=zip HEAD -o error.zip
+      shell: bash
+
+    - name: Upload error archive
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: error
+        path: error.zip
