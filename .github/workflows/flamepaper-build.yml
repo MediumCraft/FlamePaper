@@ -38,13 +38,16 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-
+    
+    # Give execute permission to all script files in the repository
+    - name: Set execute permission on all script files
+      run: find . -type f -name "*.sh" -exec chmod +x {} \;
+    
     # Start building FlamePaper
     - name: Build FlamePaper
       run: |
         git config --global user.email "you@example.com"
         git config --global user.name "Your Name"
-        chmod +x ./build.sh
         ./build.sh
     # An artifact is generated in a compressed file according to each JDK build version.
     - name: Upload FlamePaper Server
