@@ -64,7 +64,7 @@ jobs:
     - name: Archive repository on failure
       if: ${{ failure() }}
       run: |
-        git archive --format=zip HEAD -o error.zip
+        zip -r error.zip .
       shell: bash
 
     - name: Upload error archive
